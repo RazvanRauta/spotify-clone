@@ -3,13 +3,11 @@ import { useRouter } from 'next/router';
 
 import { openGraph } from '@/lib/helper';
 
-// !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Next.js + Tailwind CSS + TypeScript Starter',
-  siteName: 'Next.js + Tailwind CSS + TypeScript Starter',
-  description:
-    'A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import, Seo, Link component, pre-configured with Husky',
-  url: 'https://tsnext-tw.thcl.dev',
+  title: 'Spotify Clone',
+  siteName: 'Spotify Clone',
+  description: 'An Spotify Clone made Next.js, Tailwind CSS, and TypeScript',
+  url: 'https://spotify.rrazvan.dev',
   image: 'https://theodorusclarence.com/favicon/large-og.jpg',
   type: 'website',
   robots: 'follow, index',

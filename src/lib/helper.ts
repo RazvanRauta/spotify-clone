@@ -1,3 +1,9 @@
+/**
+ * @ @author: Razvan Rauta
+ * @ Date: Dec 06 2021
+ * @ Time: 18:30
+ */
+
 type OpenGraphType = {
   siteName: string;
   description: string;

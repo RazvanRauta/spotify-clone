@@ -1,8 +1,12 @@
-import { AppProps } from 'next/app';
+/**
+ *  @author: Razvan Rauta
+ *  Date: Dec 06 2021
+ *  Time: 18:30
+ */
+
+import type { AppProps } from 'next/app';
 
 import '@/styles/globals.css';
-// !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
-import '@/styles/colors.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
