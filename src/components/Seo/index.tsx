@@ -8,7 +8,7 @@ const defaultMeta = {
   siteName: 'Spotify Clone',
   description: 'An Spotify Clone made Next.js, Tailwind CSS, and TypeScript',
   url: 'https://spotify.rrazvan.dev',
-  image: 'https://theodorusclarence.com/favicon/large-og.jpg',
+  image: 'https://spotify.rrazvan.dev/favicon/large-og.png',
   type: 'website',
   robots: 'follow, index',
 };
@@ -66,7 +66,7 @@ export default function Seo(props: SeoProps) {
           <meta
             name='author'
             property='article:author'
-            content='Theodorus Clarence'
+            content='Razvan Rauta'
           />
         </>
       )}
@@ -92,8 +92,6 @@ type Favicons = {
   type?: string;
 };
 
-// !STARTERCONF this is the default favicon, you can generate your own from https://www.favicon-generator.org/
-// then replace the whole /public/favicon folder
 const favicons: Array<Favicons> = [
   {
     rel: 'apple-touch-icon',
