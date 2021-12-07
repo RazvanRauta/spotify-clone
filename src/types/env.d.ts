@@ -11,6 +11,7 @@ declare global {
       NEXTAUTH_SECRET: string;
       NEXT_PUBLIC_CLIENT_ID: string;
       NEXT_PUBLIC_CLIENT_SECRET: string;
+      PUBLIC_URLS: string;
     }
   }
 }

@@ -8,6 +8,7 @@ import type { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import * as React from 'react';
 
+import Center from '@/components/Center';
 import Layout from '@/components/Layout';
 import Seo from '@/components/Seo';
 import SideBar from '@/components/Sidebar';
@@ -16,9 +17,9 @@ export default function HomePage() {
   return (
     <Layout>
       <Seo />
-      <main className=''>
+      <main className='flex'>
         <SideBar />
-        {/* Center */}
+        <Center />
       </main>
       <div>{/* Player */}</div>
     </Layout>

@@ -29,6 +29,7 @@ declare module 'next-auth' {
       accessToken?: string | null;
       refreshToken?: string | null;
       username?: string | null;
+      error?: JWTError;
     };
   }
 }
