@@ -13,19 +13,16 @@ const scopes = [
   'user-read-playback-state',
   'user-modify-playback-state',
   'user-follow-read',
-].join(',');
-
-const params = {
-  scopes,
-};
-
-const queryParamString = new URLSearchParams(params).toString();
-
-export const LOGIN_URL = `https://accounts.spotify.com/authorize?${queryParamString}`;
+];
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
   clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
 });
+
+export const LOGIN_URL = spotifyApi.createAuthorizeURL(
+  scopes,
+  'my-random-cool-state-bo$$'
+);
 
 export default spotifyApi;

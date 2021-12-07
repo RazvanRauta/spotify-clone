@@ -7,7 +7,7 @@
 import { ChevronDownIcon, PhotographIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import shuffle from 'lodash/shuffle';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import type { ReactElement } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -57,9 +57,13 @@ export default React.memo(function Center(): ReactElement {
   }, [selectedPlaylistId, spotifyApi]);
 
   return (
-    <div className='flex-grow'>
+    <div className='scrollbar-hide overflow-y-scroll flex-grow h-screen'>
       <header className='absolute top-5 right-8'>
-        <div className='flex items-center p-1 pr-2 space-x-3 bg-black rounded-full opacity-90 cursor-pointer hover:opacity-80'>
+        <div
+          className='flex items-center p-1 pr-2 space-x-3 bg-black rounded-full opacity-90 cursor-pointer hover:opacity-80'
+          onClick={() => signOut()}
+          title='Sign Out'
+        >
           <NextImage
             src={session?.user?.image || ''}
             alt='Profile Pic'
@@ -68,7 +72,7 @@ export default React.memo(function Center(): ReactElement {
             height={40}
           />
           <h4 className='text-white'>{session?.user?.name}</h4>
-          <ChevronDownIcon className='w-5 h-5' />
+          <ChevronDownIcon className='w-5 h-5 text-white' />
         </div>
       </header>
       <section

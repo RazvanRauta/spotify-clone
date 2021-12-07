@@ -10,9 +10,9 @@ interface SongsProps {
 export default React.memo(function Songs({ songs }: SongsProps): ReactElement {
   return (
     <div>
-      <div className='text-white'>
-        {songs.map((song) => (
-          <Song key={song.track.id} song={song} />
+      <div className='flex flex-col px-8 pb-28 space-y-1 text-white'>
+        {songs.map((song, i) => (
+          <Song key={song.track.id} order={i} song={song} />
         ))}
       </div>
     </div>
