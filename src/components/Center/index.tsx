@@ -4,7 +4,7 @@
  *  Time: 14:39
  */
 
-import { ChevronDownIcon } from '@heroicons/react/outline';
+import { ChevronDownIcon, PhotographIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import shuffle from 'lodash/shuffle';
 import { useSession } from 'next-auth/react';
@@ -12,8 +12,14 @@ import type { ReactElement } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import React from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+import useSpotify from '@/hooks/useSpotify';
+
+import { playlistAtom, selectedPlaylistIdAtom } from '@/store/atoms/playlist';
 
 import NextImage from '../NextImage';
+import Songs from '../Songs';
 
 const colors = [
   'from-indigo-500',
@@ -24,18 +30,36 @@ const colors = [
   'from-purple-500',
 ];
 
-export default function Center(): ReactElement {
+export default React.memo(function Center(): ReactElement {
   const { data: session } = useSession();
   const [sectionColor, setSectionColor] = useState<string>();
+  const selectedPlaylistId = useRecoilValue(selectedPlaylistIdAtom);
+  const [playlist, setPlaylist] = useRecoilState(playlistAtom);
+  const { spotifyApi } = useSpotify();
 
   useEffect(() => {
     setSectionColor(shuffle(colors).pop());
-  }, []);
+  }, [selectedPlaylistId]);
+
+  useEffect(() => {
+    if (selectedPlaylistId) {
+      spotifyApi
+        .getPlaylist(selectedPlaylistId)
+        .then((data) => {
+          setPlaylist(data.body);
+        })
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.log({ err });
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPlaylistId, spotifyApi]);
 
   return (
     <div className='flex-grow'>
       <header className='absolute top-5 right-8'>
-        <div className='flex items-center p-1 pr-2 space-x-3 bg-red-300 rounded-full opacity-90 cursor-pointer hover:opacity-80'>
+        <div className='flex items-center p-1 pr-2 space-x-3 bg-black rounded-full opacity-90 cursor-pointer hover:opacity-80'>
           <NextImage
             src={session?.user?.image || ''}
             alt='Profile Pic'
@@ -43,7 +67,7 @@ export default function Center(): ReactElement {
             width={40}
             height={40}
           />
-          <h4>{session?.user?.name}</h4>
+          <h4 className='text-white'>{session?.user?.name}</h4>
           <ChevronDownIcon className='w-5 h-5' />
         </div>
       </header>
@@ -53,8 +77,33 @@ export default function Center(): ReactElement {
           sectionColor
         )}
       >
-        <h1>hello</h1>
+        {playlist?.images?.[0]?.url ? (
+          <NextImage
+            src={playlist?.images?.[0]?.url}
+            alt='Cover'
+            imgClassName='shadow-2xl'
+            width={176}
+            height={176}
+            useSkeleton
+          />
+        ) : (
+          <div className='flex flex-col justify-center items-center w-44 h-44 border-2'>
+            <PhotographIcon className='w-32 h-32' />
+            <p>No Cover</p>
+          </div>
+        )}
+        <div>
+          <p>PLAYLIST</p>
+          {playlist?.name && (
+            <h2 className='text-2xl font-bold md:text-3xl xl:text-5xl'>
+              {playlist?.name}
+            </h2>
+          )}
+        </div>
       </section>
+      <div>
+        {playlist?.tracks.items && <Songs songs={playlist?.tracks.items} />}
+      </div>
     </div>
   );
-}
+});

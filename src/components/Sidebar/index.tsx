@@ -13,27 +13,42 @@ import {
   SearchIcon,
 } from '@heroicons/react/outline';
 import type { ReactElement } from 'react';
+import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import React from 'react';
+import { useRecoilState } from 'recoil';
 
 import useSpotify from '@/hooks/useSpotify';
-export default function SideBar(): ReactElement {
+
+import { selectedPlaylistIdAtom } from '@/store/atoms/playlist';
+
+export default React.memo(function SideBar(): ReactElement {
   const [playlists, setPlaylists] = useState<
     SpotifyApi.PlaylistObjectSimplified[]
   >([]);
   const { spotifyApi } = useSpotify();
 
+  const [_, setSelectedPlaylistId] = useRecoilState(selectedPlaylistIdAtom);
+
+  const handlePlayListSelect = useCallback(
+    (id: string | null) => {
+      setSelectedPlaylistId(id);
+    },
+    [setSelectedPlaylistId]
+  );
+
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
       spotifyApi.getUserPlaylists().then((data) => {
         setPlaylists(data.body.items);
+        handlePlayListSelect(data?.body?.items[0]?.id ?? null);
       });
     }
-  }, [spotifyApi]);
+  }, [handlePlayListSelect, spotifyApi]);
 
   return (
-    <div className='scrollbar-hide overflow-y-scroll p-5 h-screen text-sm text-gray-500 border-r border-gray-900'>
+    <div className='scrollbar-hide hidden overflow-y-scroll p-5 h-screen text-xs text-gray-500 border-r border-gray-900 sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem] lg:text-sm'>
       <div className='space-y-4'>
         <button className='flex items-center space-x-2 hover:text-white'>
           <HomeIcon className='w-5 h-5' />
@@ -65,11 +80,15 @@ export default function SideBar(): ReactElement {
 
         {playlists &&
           playlists.map((playlist) => (
-            <p className='cursor-pointer hover:text-white' key={playlist.id}>
+            <p
+              className='cursor-pointer hover:text-white'
+              onClick={() => handlePlayListSelect(playlist.id)}
+              key={playlist.id}
+            >
               {playlist.name}
             </p>
           ))}
       </div>
     </div>
   );
-}
+});
