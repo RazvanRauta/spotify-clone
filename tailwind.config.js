@@ -18,7 +18,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Inter', ...fontFamily.sans],
+        primary: ['spotify-circular', ...fontFamily.sans],
       },
       colors: {
         primary: {

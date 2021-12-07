@@ -1,7 +1,25 @@
 {
   "headers": [
     {
-      "source": "/fonts/inter-var-latin.woff2",
+      "source": "/fonts/CircularSpotify-Latin-Book.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/CircularSpotify-Latin-Bold.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/CircularSpotify-Latin-Black.woff2",
       "headers": [
         {
           "key": "Cache-Control",
