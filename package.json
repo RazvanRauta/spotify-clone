@@ -12,10 +12,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "eslint src --fix && yarn format && git add .",
+    "lint:fix": "eslint src --fix && yarn format",
     "lint:strict": "eslint --max-warnings=0 src",
     "tsc": "tsc --noEmit",
     "test:watch": "jest --watch",
+    "bla": "bla",
     "test": "jest",
     "format": "prettier -w .",
     "format:check": "prettier -c .",
@@ -67,12 +68,10 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,}": [
       "eslint --max-warnings=0",
-      "prettier -w .",
-      "git add"
+      "prettier -w"
     ],
     "src/**/*.{json,css,scss,md}": [
-      "prettier -w .",
-      "git add"
+      "prettier -w"
     ]
   }
 }
