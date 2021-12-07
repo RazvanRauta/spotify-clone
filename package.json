@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "eslint src --fix && yarn format && git add",
+    "lint:fix": "eslint src --fix && yarn format && git add .",
     "lint:strict": "eslint --max-warnings=0 src",
     "tsc": "tsc --noEmit",
     "test:watch": "jest --watch",
