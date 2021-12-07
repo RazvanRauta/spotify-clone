@@ -10,6 +10,7 @@ import * as React from 'react';
 
 import Center from '@/components/Center';
 import Layout from '@/components/Layout';
+import Player from '@/components/Player';
 import Seo from '@/components/Seo';
 import SideBar from '@/components/Sidebar';
 
@@ -21,7 +22,9 @@ export default function HomePage() {
         <SideBar />
         <Center />
       </main>
-      <div>{/* Player */}</div>
+      <div className='sticky bottom-0'>
+        <Player />
+      </div>
     </Layout>
   );
 }

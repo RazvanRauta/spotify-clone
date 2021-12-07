@@ -93,6 +93,12 @@
   }
 }
 
+@layer components {
+  .player-button {
+    @apply w-5 h-5 transition duration-100 ease-out transform cursor-pointer hover:scale-125;
+  }
+}
+
 @layer utilities {
   .animated-underline {
     background-image: linear-gradient(#33333300, #33333300),

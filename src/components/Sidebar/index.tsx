@@ -48,7 +48,7 @@ export default React.memo(function SideBar(): ReactElement {
   }, [handlePlayListSelect, spotifyApi]);
 
   return (
-    <div className='scrollbar-hide hidden overflow-y-scroll p-5 h-screen text-xs text-gray-500 border-r border-gray-900 sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem] lg:text-sm'>
+    <div className='scrollbar-hide hidden overflow-y-scroll p-5 pb-36 h-screen text-xs text-gray-500 border-r border-gray-900 sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem] lg:text-sm'>
       <div className='space-y-4'>
         <button className='flex items-center space-x-2 hover:text-white'>
           <HomeIcon className='w-5 h-5' />
