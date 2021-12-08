@@ -34,6 +34,7 @@ export default function Seo(props: SeoProps) {
     description: meta.description,
     siteName: props.templateTitle ? meta.siteName : meta.title,
     templateTitle: props.templateTitle,
+    logo: defaultMeta.image,
   });
 
   return (

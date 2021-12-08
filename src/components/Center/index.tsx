@@ -4,7 +4,11 @@
  *  Time: 14:39
  */
 
-import { ChevronDownIcon, PhotographIcon } from '@heroicons/react/outline';
+import {
+  ChevronDownIcon,
+  PhotographIcon,
+  UserCircleIcon,
+} from '@heroicons/react/outline';
 import clsx from 'clsx';
 import shuffle from 'lodash/shuffle';
 import { signOut, useSession } from 'next-auth/react';
@@ -64,14 +68,18 @@ export default React.memo(function Center(): ReactElement {
           onClick={() => signOut()}
           title='Sign Out'
         >
-          <NextImage
-            src={session?.user?.image || ''}
-            alt='Profile Pic'
-            imgClassName='rounded-full'
-            width={40}
-            height={40}
-            priority
-          />
+          {session?.user?.image ? (
+            <NextImage
+              src={session?.user?.image}
+              alt='Profile Pic'
+              imgClassName='rounded-full'
+              width={40}
+              height={40}
+              priority
+            />
+          ) : (
+            <UserCircleIcon className='w-10 h-10 text-green-500' />
+          )}
           <h4 className='text-white'>{session?.user?.name}</h4>
           <ChevronDownIcon className='w-5 h-5 text-white' />
         </div>

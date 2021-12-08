@@ -112,8 +112,13 @@ export default function Player(): ReactElement {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedAdjustVolume = useCallback(
-    debounce((volume) => {
-      spotifyApi.setVolume(volume);
+    debounce(async (volume) => {
+      try {
+        await spotifyApi.setVolume(volume);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      }
     }, 500),
     []
   );
@@ -127,7 +132,7 @@ export default function Player(): ReactElement {
   }, [spotifyApi]);
 
   useEffect(() => {
-    if (volume > 0 && volume < 100) {
+    if (volume > 0 && volume < 100 && currentTrackId) {
       debouncedAdjustVolume(volume);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
