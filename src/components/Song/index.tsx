@@ -7,6 +7,7 @@
 import clsx from 'clsx';
 import format from 'date-fns/format';
 import type { ReactElement } from 'react';
+import { useEffect, useState } from 'react';
 import { useCallback } from 'react';
 import React from 'react';
 import { useRecoilState } from 'recoil';
@@ -32,6 +33,8 @@ export default React.memo(function Song({
     useRecoilState(currentTrackIdAtom);
   const [isPlaying, setIsPlaying] = useRecoilState(isSongPlayingAtom);
 
+  const [isCurrentTrackPlaying, setIsCurrentTrackPlaying] = useState(false);
+
   const playSong = useCallback(() => {
     setCurrentTrackId(track?.id);
     setIsPlaying(true);
@@ -46,11 +49,14 @@ export default React.memo(function Song({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track, spotifyApi]);
 
+  useEffect(() => {
+    setIsCurrentTrackPlaying(currentTrackId === track?.id && isPlaying);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPlaying, currentTrackId]);
+
   if (!track) {
     return <></>;
   }
-
-  const isCurrentTrackPlaying = currentTrackId === track?.id && isPlaying;
 
   return (
     <div
