@@ -22,6 +22,7 @@ export async function middleware(req: NextApiRequest) {
         pathname.startsWith(val)
       ),
       public: process.env.PUBLIC_URLS,
+      req: req.url,
     });
     return NextResponse.next();
   }
