@@ -32,10 +32,8 @@ export default React.memo(function Song({
     useRecoilState(currentTrackIdAtom);
   const [isPlaying, setIsPlaying] = useRecoilState(isSongPlayingAtom);
 
-  const isCurrentTrackPlaying = currentTrackId === track.id && isPlaying;
-
   const playSong = useCallback(() => {
-    setCurrentTrackId(track.id);
+    setCurrentTrackId(track?.id);
     setIsPlaying(true);
     spotifyApi
       .play({
@@ -46,11 +44,13 @@ export default React.memo(function Song({
         console.log('Play Error', err);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [track.id, spotifyApi]);
+  }, [track, spotifyApi]);
 
   if (!track) {
     return <></>;
   }
+
+  const isCurrentTrackPlaying = currentTrackId === track?.id && isPlaying;
 
   return (
     <div
