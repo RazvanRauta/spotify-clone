@@ -13,9 +13,16 @@ export async function middleware(req: NextApiRequest) {
 
   // let public urls pass through
   if (
-    pathname &&
-    process.env.PUBLIC_URLS.split('|').find((val) => pathname.startsWith(val))
+    pathname
+    // process.env.PUBLIC_URLS.split('|').find((val) => pathname.startsWith(val))
   ) {
+    // eslint-disable-next-line no-console
+    console.log({
+      url: process.env.PUBLIC_URLS.split('|').find((val) =>
+        pathname.startsWith(val)
+      ),
+      public: process.env.PUBLIC_URLS,
+    });
     return NextResponse.next();
   }
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
