@@ -39,7 +39,7 @@ export default function Player(): ReactElement {
 
   const [isPlaying, setIsPlaying] = useRecoilState(isSongPlayingAtom);
 
-  const [volume, setVolume] = useState(50);
+  const [volume, setVolume] = useState(25);
 
   const fetchCurrentTrack = async () => {
     if (!songInfo) {
