@@ -70,6 +70,7 @@ export default React.memo(function Center(): ReactElement {
             imgClassName='rounded-full'
             width={40}
             height={40}
+            priority
           />
           <h4 className='text-white'>{session?.user?.name}</h4>
           <ChevronDownIcon className='w-5 h-5 text-white' />

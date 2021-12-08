@@ -4,6 +4,7 @@
  *  Time: 20:26
  */
 
+import clsx from 'clsx';
 import format from 'date-fns/format';
 import type { ReactElement } from 'react';
 import { useCallback } from 'react';
@@ -27,8 +28,11 @@ export default React.memo(function Song({
 }: SongProps): ReactElement {
   const { spotifyApi } = useSpotify();
 
-  const [_, setCurrentTrackId] = useRecoilState(currentTrackIdAtom);
-  const [__, setIsPlaying] = useRecoilState(isSongPlayingAtom);
+  const [currentTrackId, setCurrentTrackId] =
+    useRecoilState(currentTrackIdAtom);
+  const [isPlaying, setIsPlaying] = useRecoilState(isSongPlayingAtom);
+
+  const isCurrentTrackPlaying = currentTrackId === track.id && isPlaying;
 
   const playSong = useCallback(() => {
     setCurrentTrackId(track.id);
@@ -54,17 +58,29 @@ export default React.memo(function Song({
       onClick={playSong}
     >
       <div className='flex items-center space-x-4'>
-        <p>{order + 1}</p>
+        <p className={clsx(isCurrentTrackPlaying && 'text-[#1DB954]')}>
+          {order + 1}
+        </p>
         {track.album.images?.[0]?.url && (
           <NextImage
             src={track.album.images?.[0]?.url}
             alt='Track Cove'
             width={40}
             height={40}
+            imgClassName={
+              isCurrentTrackPlaying ? 'rounded-full animate-spin-slow' : ''
+            }
           />
         )}
         <div>
-          <p className='w-36 text-white truncate lg:w-64'>{track.name}</p>
+          <p
+            className={clsx(
+              'w-36 text-white truncate lg:w-64',
+              isCurrentTrackPlaying && 'text-[#1DB954]'
+            )}
+          >
+            {track.name}
+          </p>
           <p className='w-40'>{track.artists[0].name}</p>
         </div>
       </div>

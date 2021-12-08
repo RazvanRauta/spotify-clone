@@ -37,6 +37,7 @@ export default function LoginPage({
             objectFit='contain'
             className='mb-5'
             alt='Logo'
+            priority
           />
           <div>
             {providers &&
