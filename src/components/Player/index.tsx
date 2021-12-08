@@ -65,10 +65,15 @@ export default function Player(): ReactElement {
   const handleRewind = useCallback(async () => {
     try {
       await spotifyApi.skipToPrevious();
+      const response = await spotifyApi.getMyCurrentPlaybackState();
+      if (response?.body?.item) {
+        setCurrentTrackId(response?.body?.item?.id);
+      }
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyApi]);
 
   const handlePlayPause = useCallback(async () => {
@@ -94,10 +99,15 @@ export default function Player(): ReactElement {
   const handleFastForward = useCallback(async () => {
     try {
       await spotifyApi.skipToNext();
+      const response = await spotifyApi.getMyCurrentPlaybackState();
+      if (response?.body?.item) {
+        setCurrentTrackId(response?.body?.item?.id);
+      }
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyApi]);
 
   const handleReplay = useCallback(async () => {
